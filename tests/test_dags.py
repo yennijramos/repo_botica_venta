@@ -21,9 +21,13 @@ def test_dags_principales_cargan(dagbag, dag_id):
 
 def test_dags_tienen_schedule_y_catchup_desactivado(dagbag):
     for dag in dagbag.dags.values():
-        assert dag.schedule is not None
+        schedule = getattr(
+            dag,
+            "schedule",
+            getattr(dag, "schedule_interval", None),
+        )
+        assert schedule is not None
         assert dag.catchup is False
-
 
 def test_tareas_tienen_owner_y_reintentos(dagbag):
     for dag in dagbag.dags.values():
