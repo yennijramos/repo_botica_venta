@@ -1,0 +1,10 @@
+version: 2
+models:
+  - name: int_ventas_enriquecidas
+    columns:
+      - name: segmento_venta
+        tests:
+          - accepted_values:
+              values: ['ALTA', 'MEDIA', 'BAJA']
+      - name: precio_neto_unitario
+        tests: [not_null]

@@ -1,0 +1,10 @@
+version: 2
+sources:
+  - name: raw
+    database: BOTICAVENTA_DB
+    schema: RAW
+    tables:
+      - name: ventas
+        description: Ventas de la botica recibidas como CSV y conservadas en MinIO antes de su carga.
+      - name: catalogo_medicamentos
+        description: Respuesta JSON de la API pública OpenFDA guardada como VARIANT.

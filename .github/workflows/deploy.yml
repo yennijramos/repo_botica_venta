@@ -1,0 +1,32 @@
+name: CD - Despliegue BoticaVenta
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: produccion
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validar prerrequisitos de despliegue
+        env:
+          PROD_HOST: ${{ vars.PROD_HOST }}
+          PROD_USER: ${{ vars.PROD_USER }}
+          DEPLOY_KEY: ${{ secrets.PRODUCCION_SSH_KEY }}
+        run: |
+          test -n "$PROD_HOST" || (echo "Falta configurar variable PROD_HOST en Environment produccion" && exit 1)
+          test -n "$PROD_USER" || (echo "Falta configurar variable PROD_USER en Environment produccion" && exit 1)
+          test -n "$DEPLOY_KEY" || (echo "Falta configurar secret PRODUCCION_SSH_KEY" && exit 1)
+      - name: Sincronizar código al servidor configurado
+        env:
+          PROD_HOST: ${{ vars.PROD_HOST }}
+          PROD_USER: ${{ vars.PROD_USER }}
+          DEPLOY_KEY: ${{ secrets.PRODUCCION_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$DEPLOY_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "$PROD_HOST" >> ~/.ssh/known_hosts
+          tar --exclude=.git -czf botica_venta.tar.gz .
+          scp botica_venta.tar.gz "$PROD_USER@$PROD_HOST:/tmp/botica_venta.tar.gz"
+          ssh "$PROD_USER@$PROD_HOST" 'mkdir -p ~/repo_botica_venta && tar -xzf /tmp/botica_venta.tar.gz -C ~/repo_botica_venta'

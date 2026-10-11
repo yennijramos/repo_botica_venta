@@ -1,0 +1,18 @@
+name: 'botica_venta'
+version: '1.0.0'
+config-version: 2
+profile: 'botica_venta'
+model-paths: ["models"]
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+models:
+  botica_venta:
+    staging:
+      +materialized: view
+      +schema: staging
+    intermediate:
+      +materialized: view
+      +schema: intermediate
+    marts:
+      +materialized: table
+      +schema: marts

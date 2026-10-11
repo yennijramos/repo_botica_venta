@@ -1,0 +1,32 @@
+name: CI - BoticaVenta
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+      - name: Instalar dependencias
+        run: |
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+      - name: Lint
+        run: ruff check dags/ tests/
+      - name: Tests
+        run: pytest tests/ -v
+      - name: Validar proyecto dbt (parse offline)
+        env:
+          SNOWFLAKE_ACCOUNT: ci.invalid
+          SNOWFLAKE_USER: ci_user
+          SNOWFLAKE_PASSWORD: ci_password
+          DBT_PROFILES_DIR: ${{ github.workspace }}/dags/dbt/botica_venta
+        run: |
+          cd dags/dbt/botica_venta
+          dbt parse --no-partial-parse --profiles-dir .

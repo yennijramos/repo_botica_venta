@@ -1,0 +1,8 @@
+apache-airflow==3.0.0
+apache-airflow-providers-amazon
+apache-airflow-providers-snowflake
+astronomer-cosmos[dbt-snowflake]==1.*
+dbt-snowflake==1.*
+pytest==8.3.3
+pytest-mock==3.14.0
+ruff==0.7.4

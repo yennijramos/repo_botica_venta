@@ -1,0 +1,28 @@
+.venv/
+__pycache__/
+*.pyc
+
+# Generados/locales de Docker — no van al repositorio
+logs/
+.env
+
+# Artefactos de dbt
+dags/dbt/tiendanova/target/
+dags/dbt/tiendanova/dbt_packages/
+dags/dbt/tiendanova/logs/
+\n# dbt generated files\ndags/dbt/botica_venta/target/\ndags/dbt/botica_venta/dbt_packages/\ndags/dbt/botica_venta/logs/\n
+# Credenciales y secretos
+.env
+.env.*
+!.env.example
+
+# Respaldos y datos locales
+airflow_metadata_backup.sql
+logs/
+__pycache__/
+*.pyc
+
+# Artefactos generados por dbt
+dags/dbt/botica_venta/target/
+dags/dbt/botica_venta/dbt_packages/
+dags/dbt/botica_venta/logs/

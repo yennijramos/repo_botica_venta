@@ -1,0 +1,11 @@
+version: 2
+models:
+  - name: stg_ventas
+    description: Ventas validadas y tipadas en la capa staging.
+    columns:
+      - name: id_venta
+        tests: [not_null, unique]
+      - name: id_producto
+        tests: [not_null]
+      - name: venta_neta
+        tests: [not_null]

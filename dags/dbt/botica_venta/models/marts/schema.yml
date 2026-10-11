@@ -1,0 +1,11 @@
+version: 2
+models:
+  - name: mart_ventas_diarias
+    description: Indicadores diarios por producto para reabastecimiento y seguimiento comercial.
+    columns:
+      - name: fecha_venta
+        tests: [not_null]
+      - name: id_producto
+        tests: [not_null]
+      - name: ventas_netas
+        tests: [not_null]

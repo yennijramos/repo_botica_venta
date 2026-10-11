@@ -1,0 +1,7 @@
+id_venta,fecha_venta,id_producto,producto,cantidad,precio_unitario,descuento
+BV-1001,2026-10-01,MED-001,Paracetamol 500mg,3,2.50,0.00
+BV-1002,2026-10-01,MED-002,Ibuprofeno 400mg,2,4.80,1.00
+BV-1003,2026-10-01,MED-003,Alcohol 70%,5,3.20,0.00
+BV-1004,2026-10-02,MED-001,Paracetamol 500mg,10,2.50,2.00
+BV-1005,2026-10-02,MED-004,Vitamina C 1g,4,5.50,0.00
+BV-1006,2026-10-02,MED-005,Mascarilla descartable,20,1.20,2.00
