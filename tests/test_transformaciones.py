@@ -1,4 +1,3 @@
-import importlib.util
 import sys
 from pathlib import Path
 
@@ -9,7 +8,7 @@ ROOT_DIR = Path(__file__).resolve().parents[1]
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
-from dags.utils.transformaciones import normalizar_venta, calcular_margen
+from dags.utils.transformaciones import calcular_margen, normalizar_venta
 
 
 def venta(**overrides):

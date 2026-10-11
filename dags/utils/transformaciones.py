@@ -1,5 +1,6 @@
 from decimal import Decimal, InvalidOperation
 
+
 def normalizar_venta(fila: dict) -> dict:
     """Valida y normaliza una venta de botica sin depender de Airflow."""
     required = ("id_venta", "fecha_venta", "id_producto", "producto", "cantidad", "precio_unitario", "descuento")

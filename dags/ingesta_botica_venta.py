@@ -2,20 +2,18 @@
 CSV de ventas + API pública OpenFDA -> MinIO -> Snowflake.
 """
 
-from datetime import timedelta
 import csv
 import json
 import urllib.request
+from datetime import timedelta
 from pathlib import Path
 
 import pendulum
-
 from airflow.decorators import dag, task
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.providers.snowflake.hooks.snowflake import SnowflakeHook
 from airflow.sensors.base import PokeReturnValue
 from utils.transformaciones import normalizar_venta
-
 
 DATA_FILE = "/opt/airflow/data/ventas_botica.csv"
 BUCKET = "botica-raw"

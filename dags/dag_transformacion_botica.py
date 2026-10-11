@@ -1,7 +1,8 @@
 """Ejecuta modelos dbt de BoticaVenta como tareas nativas de Airflow mediante Cosmos."""
 from datetime import datetime, timedelta
+
 from airflow.decorators import dag
-from cosmos import DbtTaskGroup, ProjectConfig, ProfileConfig, ExecutionConfig
+from cosmos import DbtTaskGroup, ExecutionConfig, ProfileConfig, ProjectConfig
 from cosmos.constants import ExecutionMode
 
 DBT_PROJECT_DIR = "/opt/airflow/dags/dbt/botica_venta"
