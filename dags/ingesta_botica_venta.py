@@ -13,6 +13,7 @@ from airflow.decorators import dag, task
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.providers.snowflake.hooks.snowflake import SnowflakeHook
 from airflow.sensors.base import PokeReturnValue
+from botocore.exceptions import ClientError
 from utils.transformaciones import normalizar_venta
 
 DATA_FILE = "/opt/airflow/data/ventas_botica.csv"
@@ -107,12 +108,18 @@ def ingesta_botica_venta():
         s3 = hook.get_conn()
 
         # Crear el bucket solamente si no existe.
+                # Crear el bucket solamente si no existe.
         try:
             s3.head_bucket(Bucket=BUCKET)
-        except Exception:
-            s3.create_bucket(Bucket=BUCKET)
-
-        stamp = datetime.utcnow().strftime(
+        except ClientError as exc:
+            if exc.response.get("Error", {}).get("Code") in (
+                "404",
+                "NoSuchBucket",
+            ):
+                s3.create_bucket(Bucket=BUCKET)
+            else:
+                raise
+        stamp = datetime.now(pendulum.timezone("UTC")).strftime(
             "%Y%m%dT%H%M%SZ"
         )
 
